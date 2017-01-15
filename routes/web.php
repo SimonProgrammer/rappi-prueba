@@ -10,7 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::post('/procesar', 'RestController@ProcesarDatos');
+Route::get('/prueba', function () {
+    return view('prueba');
+});
 Route::get('/', function () {
     return view('welcome');
 });

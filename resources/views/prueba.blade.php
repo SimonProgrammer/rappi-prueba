@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 	<link rel="shortcut icon" href="http://blog.rappi.com/wp-content/uploads/2016/07/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="http://blog.rappi.com/wp-content/uploads/2016/07/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -19,7 +20,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<form>
+			<form id = "formulario_comandos">
 			  <div class="form-group">
 			    <label for="exampleInputEmail1">Escribe los comandos en el area de texto</label>
 			    <textarea rows="7" class="form-control" id = "entrada_comandos"></textarea>
@@ -30,22 +31,22 @@
 			    <div class="input-group">
 	                <label class="input-group-btn">
 	                    <span class="btn btn-primary">
-	                       <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>  Buscar Archivo&hellip; <input type="file" accept=".txt" style="display: none;">
+	                       <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>  Buscar Archivo&hellip; <input type="file" id = "archivo_comandos" accept=".txt" style="display: none;">
 	                    </span>
 	                </label>
 	                <input type="text" class="form-control" readonly>
 	            </div>
 			  </div>
-			  <button type="button" id = "procesar_comandos" class="btn btn-primary"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Procesar</button>
+			  <button type="button" id = "procesar_comandos" class="btn btn-primary"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>   Procesar</button>
 			</form>
 		</div>
 		<div class="row">
 			<form>
 			  <div class="form-group">
 			    <label for="exampleInputEmail1">Resultados</label>
-			    <textarea rows="8" class="form-control" id = "entrada_comandos"></textarea>
+			    <textarea rows="8" class="form-control" id = "resultados_comandos"></textarea>
 			  </div>
-			  <button type="button" id = "procesar_comandos" class="btn btn-success"> <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>  Refrescar</button>
+			  <button type="button" id = "procesar_comandos" class="btn btn-success"> <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>   Refrescar</button>
 			</form>
 		</div>
 	</div>

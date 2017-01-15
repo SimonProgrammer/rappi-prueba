@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Matrix;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Http\Models\Matriz;
 
 class RestController extends Controller
 {
@@ -13,8 +14,13 @@ class RestController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function ProcesarDatos()
+    public function procesarDatos(Request $request)
     {
-        $matrix = new Matrix();
+        $input = $request->all();
+        $comandos = explode(PHP_EOL,$request->input('comandos'));
+        $matriz = new Matriz($comandos);
+        $response = $matriz->procesarComandos();
+        return implode(PHP_EOL,$response);
     }
+    
 }

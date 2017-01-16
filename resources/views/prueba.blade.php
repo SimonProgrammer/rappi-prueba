@@ -27,7 +27,7 @@
 			  </div> 
 			    <h5> ó </h5>
 			  <div class="form-group">
-			  	<h5>Sube el archivo de texto de comandos</h5>
+			  	<h5>Sube el archivo .txt de comandos</h5>
 			    <div class="input-group">
 	                <label class="input-group-btn">
 	                    <span class="btn btn-primary">

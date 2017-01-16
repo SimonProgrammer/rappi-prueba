@@ -14,41 +14,40 @@ class Matriz
          $this->tam = 0;
 	}
     public function procesarComandos(){
-        if(!self::validarComandos()){
-            return array();
-        }
         $response = array();
-        foreach ($this->comandos as $key => $comando) {
-            if(count(explode(" ",trim($comando))) == 2){
-               $params = explode(" ",trim($comando));
-               if(is_numeric($params[0])){
-                  $this->tam = (int)$params[0];
-                  $this->matriz = self::obtenerMatriz();
-               }
-            }
-            else if(stripos(trim($comando),"UPDATE") !== false){
-                if (!empty($this->matriz)) {
-                   $params = explode(' ',trim($comando));
-                   $this->matriz[$params[1]][$params[2]][$params[3]] = $params[4];
+        if(self::validarComandos()){
+            foreach ($this->comandos as $key => $comando) {
+                if(count(explode(" ",trim($comando))) == 2){
+                   $params = explode(" ",trim($comando));
+                   if(is_numeric($params[0])){
+                      $this->tam = (int)$params[0];
+                      $this->matriz = self::obtenerMatriz();
+                   }
                 }
-            }
-            else if(stripos(trim($comando),"QUERY") !== false){
-                if(!empty($this->matriz)){
-                    $params = explode(' ',trim($comando));
-                    $x = range((int)$params[1],(int)$params[4]);
-                    $y = range((int)$params[2],(int)$params[5]);
-                    $z = range((int)$params[3],(int)$params[6]);
-                    $combinacion = self::productoCartesiano($x,$y);
-                    $combinacion = self::productoCartesiano($combinacion,$z);
-                    $sum = 0;
-                    foreach ($combinacion as $punto => $coordenada) {
-                        $x = $coordenada["0"]; 
-                        $y = $coordenada["1"]; 
-                        $z = $coordenada["2"]; 
-                        $sum+=$this->matriz[$x][$y][$z];
+                else if(stripos(trim($comando),"UPDATE") !== false){
+                    if (!empty($this->matriz)) {
+                       $params = explode(' ',trim($comando));
+                       $this->matriz[$params[1]][$params[2]][$params[3]] = $params[4];
                     }
-                    array_push($response,$sum);
-                }    
+                }
+                else if(stripos(trim($comando),"QUERY") !== false){
+                    if(!empty($this->matriz)){
+                        $params = explode(' ',trim($comando));
+                        $x = range((int)$params[1],(int)$params[4]);
+                        $y = range((int)$params[2],(int)$params[5]);
+                        $z = range((int)$params[3],(int)$params[6]);
+                        $combinacion = self::productoCartesiano($x,$y);
+                        $combinacion = self::productoCartesiano($combinacion,$z);
+                        $sum = 0;
+                        foreach ($combinacion as $punto => $coordenada) {
+                            $x = $coordenada["0"]; 
+                            $y = $coordenada["1"]; 
+                            $z = $coordenada["2"]; 
+                            $sum+=$this->matriz[$x][$y][$z];
+                        }
+                        array_push($response,$sum);
+                    }    
+                }
             }
         }
         return $response;

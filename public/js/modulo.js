@@ -11,17 +11,24 @@ var Modulo = function(){
 
           if( input.length ) {
               input.val(log);
-          } else {
-              if( log ) alert(log);
           }
 	}
 	this.procesarComando = function(){
 		var data = new FormData();
-		var textarea = $('#entrada_comandos').val();
-		$.each(jQuery('#archivo_comandos')[0].files, function(i, file) {
+		var textarea = $('#entrada_comandos').val().trim();
+		if(textarea != ''){
+			data.append('comandos',textarea);
+		}
+		$.each($('#archivo_comandos')[0].files, function(i, file) {
 		    data.append('archivo', file);
 		});
-		data.append('comandos',textarea);
+		
+		if($('#archivo_comandos')[0].files.length == 0 && textarea == ''){
+			$('#resultados_comandos').val('Introduzca comandos por favor');
+			setTimeout(function(){ $('#resultados_comandos').val(''); }, 3000);
+			return false;
+		}
+
 		$.ajax({
 		    url : 'procesar',
 		    data : data,
@@ -37,9 +44,6 @@ var Modulo = function(){
 		    }
 		});
 	}
-	this.validarComandos = function(){
-		items = model.split("\n");
-	}
 }
 var modulo = new Modulo();
 $(function(){
@@ -51,4 +55,7 @@ $(function(){
 	$(document).on('change', ':file', modulo.cambioArchivo);
 	$(':file').on('fileselect',modulo.archivoSeleccionado);
 	$("#formulario_comandos").on("click","#procesar_comandos",modulo.procesarComando);
+	$("body").on("click","#resetear",function(){
+		location.reload();
+	});
 });

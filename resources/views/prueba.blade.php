@@ -46,7 +46,7 @@
 			    <label for="exampleInputEmail1">Resultados</label>
 			    <textarea rows="8" class="form-control" id = "resultados_comandos"></textarea>
 			  </div>
-			  <button type="button" id = "procesar_comandos" class="btn btn-success"> <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>   Refrescar</button>
+			  <button type="button" id = "resetear" class="btn btn-success"> <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>   Refrescar</button>
 			</form>
 		</div>
 	</div>

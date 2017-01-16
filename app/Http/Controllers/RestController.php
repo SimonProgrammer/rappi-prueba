@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Models\Matriz;
 
 class RestController extends Controller
@@ -17,10 +18,19 @@ class RestController extends Controller
     public function procesarDatos(Request $request)
     {
         $input = $request->all();
-        $comandos = explode(PHP_EOL,$request->input('comandos'));
+        $comandos = array();
+        if(isset($input["comandos"])){
+            $comandos = explode(PHP_EOL,$request->input('comandos'));
+        }
+        else if(isset($input["archivo"])){
+            $path = $request->file('archivo')->store('files');
+            $contents = Storage::get($path);
+            $comandos = explode(PHP_EOL,$contents);
+        }
+        
         $matriz = new Matriz($comandos);
         $response = $matriz->procesarComandos();
-        return implode(PHP_EOL,$response);
+        return (count($response) == 0 ? 'Comandos Invalidos' : implode(PHP_EOL,$response));
     }
     
 }

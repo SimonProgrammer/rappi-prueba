@@ -1,7 +1,7 @@
 textarea{
 	resize: none;
 }
-#procesar_comandos{
+#procesar_comandos,#resetear{
 	float: right;
 }
 .btn-file {

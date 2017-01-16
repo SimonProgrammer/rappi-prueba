@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Models\Matriz;
+use App\Http\Application\ApplicationMatriz;
 
 class RestController extends Controller
 {
@@ -17,6 +17,7 @@ class RestController extends Controller
      */
     public function procesarDatos(Request $request)
     {
+        $application_matriz = new ApplicationMatriz();
         $input = $request->all();
         $comandos = array();
         if(isset($input["comandos"])){
@@ -27,10 +28,8 @@ class RestController extends Controller
             $contents = Storage::get($path);
             $comandos = explode(PHP_EOL,$contents);
         }
-        
-        $matriz = new Matriz($comandos);
-        $response = $matriz->procesarComandos();
-        return (count($response) == 0 ? 'Comandos Invalidos' : implode(PHP_EOL,$response));
+        $response =  $application_matriz->sumaCubo($comandos);
+        return $response;
     }
     
 }
